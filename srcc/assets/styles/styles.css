@@ -1,0 +1,128 @@
+@import 'datatables.net-dt';
+
+
+:root{
+    --color-border-grey: #e9e9e9;
+    --color-border-active-grey: #4284ff;
+    --dark-color-border-grey: #223041;
+}
+
+body{
+    font-family: 'Inter' !important;
+}
+
+/*DATATABLE STYLOS PERSONALIZADOS*/
+tr th{
+    border-bottom: 1px solid rgb(246, 248, 251) !important;
+    text-align: center !important;
+}
+
+tr th:nth-child(7){
+    display: none;
+}
+
+[data-bs-theme="dark"] tr th{
+    border-bottom: 1px solid rgb(34, 48, 65) !important;
+}
+
+tr td{
+    border: none !important;
+    text-align: center !important;
+}
+
+.dt-layout-row:nth-child(1){
+    border-bottom: 1.2em solid rgb(246, 248, 251);
+}
+
+.dt-layout-row:nth-child(2){
+    border-bottom: 1.2em solid rgb(246, 248, 251);
+}
+
+[data-bs-theme="dark"] .dt-layout-row:nth-child(1){
+    border-bottom: 1.2em solid rgb(21, 31, 44);
+}
+
+[data-bs-theme="dark"] .dt-layout-row:nth-child(2){
+    border-bottom: 1.2em solid rgb(21, 31, 44);
+}
+
+.dt-layout-cell{
+    padding: 0 !important;
+}
+
+.dt-layout-cell.dt-start{
+    padding: 0.7em 1em !important;
+}
+
+.dt-layout-cell.dt-end{
+    padding: 0.7em 1em !important;
+}
+
+.dt-input{
+    border: 1px solid rgb(233, 233, 233) !important;
+    height: 2.5em;
+    padding: 0 0.5em !important;
+    outline: none;
+    margin: 0 !important;
+}
+
+[data-bs-theme="dark"] .dt-input{
+    border:  1px solid rgb(34, 48, 65) !important;
+}
+
+.dt-length label .dt-input{
+    margin: 0 0.5em !important;
+}
+
+.dt-search label{
+    margin-right: 0.5em;
+}
+
+
+/*BUTTON*/
+.dt-paging-button{
+    border: 1px solid var(--color-border-grey) !important;
+    margin: 1px !important;
+    border-radius: 0 !important;
+}
+
+[data-bs-theme="dark"] .dt-paging-button{
+    border: 1px solid var(--dark-color-border-grey) !important;
+}
+
+.dt-paging-button.current{
+    background: red !important;
+    border: 1px solid var(--color-border-active-grey) !important;
+}
+
+.step-progress__step{
+    transform: scale(0.6);
+    background: red !important;
+}
+
+.step-progress__step::after{
+    background: rgb(194, 194, 194);
+}
+
+.step-progress__step--active::after, .step-progress__step--valid::after{
+    background: rgb(0, 158, 0);
+}
+
+.step-progress__step span{
+    font-weight: 600;
+    font-size: 30px;
+    font-family: 'Inter' !important;
+    color: #fff;
+}
+
+.step-progress__step--active{
+    --activeColor: rgb(255, 255, 255) !important;
+}
+
+.step-progress__wrapper-before{
+    background: rgb(194, 194, 194) !important; 
+}
+
+.step-progress__wrapper-after{
+    background: rgb(0, 158, 0) !important;
+}

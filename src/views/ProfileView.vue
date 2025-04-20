@@ -4,8 +4,10 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 
 /* COMPONENTS BASE */
+/* COMPONENTS BASE */
 import HeaderPage from '@/components/page/header/Component.vue';
 import FooterPage from '@/components/page/footer/Component.vue';
+/* COMPONENTS GLOBALS */
 /* COMPONENTS GLOBALS */
 import TitleGlobal from '@/components/global/TitleGlobal.vue';
 import NavItemGlobal from '@/components/global/NavItemGlobal.vue';
@@ -16,6 +18,9 @@ import AlertGlobal from '@/components/global/AlertGlobal.vue'
 /* COMPONENTS PLACEHOLDERS */
 import LabelPlaceholder from '@/components/placeholders/LabelPlaceholder.vue';
 import InputPlaceholder from '@/components/placeholders/InputPlaceholder.vue';
+
+/* COMPONENTS MODALS */
+import NewPassword from '@/components/modals/forms/NewPassword.vue';
 
 import avatar from '@/assets/img/esteban.jpg';
 import { useAccountStore } from '@/stores/account';
@@ -105,8 +110,44 @@ async function updateProfile() {
                                 </ul>
                                 <ul v-else class="nav list-group list-group-transparent" data-bs-toggle="tabs"
                                     role="tablist">
+                                <ul v-if="useAccount.apiName === 'filterProfile'"
+                                    class="nav list-group list-group-transparent placeholder-glow" data-bs-toggle="tabs"
+                                    role="tablist">
+                                    <LabelPlaceholder class="subheader ms-3 mb-3" style="height: 15px; width: 142px;"
+                                        type="h4" text="Configuración general" />
+
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#" class="list-group-item list-group-item-action active"
+                                            style="cursor: wait;">
+                                            <LabelPlaceholder style="height: 16px; width: 35px; margin: 2px 0px;" />
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#" class="list-group-item list-group-item-action"
+                                            style="cursor: wait;">
+                                            <LabelPlaceholder style="height: 16px; width: 47px; margin: 2px 0px;" />
+                                        </a>
+                                    </li>
+
+                                    <LabelPlaceholder class="subheader mt-3 mb-3 ms-3"
+                                        style="height: 15px; width: 70px;" type="h4" text="Experiencia" />
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#" class="list-group-item list-group-item-action"
+                                            style="cursor: wait;">
+                                            <LabelPlaceholder style="height: 16px; width: 85px; margin: 2px 0px;" />
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul v-else class="nav list-group list-group-transparent" data-bs-toggle="tabs"
+                                    role="tablist">
                                     <TitleGlobal class="subheader ms-3 mb-3" type="h4" text="Configuración general" />
                                     <NavItemGlobal href="#tabs-profile" text="Perfil" :active="true"
+                                        :ariaSelected="true" :wait="useAccount.apiName === 'filterProfile'"
+                                        :deactive="useAccount.apiName === 'filterProfile'" />
+                                    <NavItemGlobal href="#tabs-account" text="Cuenta" :active="false"
+                                        :ariaSelected="false" :wait="useAccount.apiName === 'filterProfile'"
+                                        :deactive="useAccount.apiName === 'filterProfile'" />
                                         :ariaSelected="true" :wait="useAccount.apiName === 'filterProfile'"
                                         :deactive="useAccount.apiName === 'filterProfile'" />
                                     <NavItemGlobal href="#tabs-account" text="Cuenta" :active="false"
@@ -117,6 +158,8 @@ async function updateProfile() {
                                     <NavItemGlobal href="#tabs-comment" text="Comentarios" :active="false"
                                         :ariaSelected="false" :wait="useAccount.apiName === 'filterProfile'"
                                         :deactive="useAccount.apiName === 'filterProfile'" />
+                                        :ariaSelected="false" :wait="useAccount.apiName === 'filterProfile'"
+                                        :deactive="useAccount.apiName === 'filterProfile'" />
                                 </ul>
                             </div>
                         </div>
@@ -125,14 +168,18 @@ async function updateProfile() {
                             <div class="tab-content">
 
                                 <!-- Componente de carga -->
+                                <!-- Componente de carga -->
                                 <div v-if="useAccount.apiName === 'filterProfile'" id="tabs-profile"
                                     class="tab-pane active show placeholder-glow" role="tabpanel">
                                     <div class="card-header border-0 pb-0">
                                         <div class="placeholder" style="height: 20px; width: 50px;"></div>
                                     </div>
                                     <div class="card-body pb-0">
+                                    <div class="card-body pb-0">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
+                                                <span class="avatar avatar-xl shadow-none">
+                                                    <div class="avatar avatar-xl placeholder shadow-none"></div>
                                                 <span class="avatar avatar-xl shadow-none">
                                                     <div class="avatar avatar-xl placeholder shadow-none"></div>
                                                 </span>
@@ -152,12 +199,21 @@ async function updateProfile() {
                                             <div class="row">
                                                 <div class="col-md mb-3">
                                                     <LabelPlaceholder
+                                                    <LabelPlaceholder
+                                                        style="height: 16px; width: 59px; margin-bottom: 12px;" />
+                                                    <InputPlaceholder />
+                                                    <InputPlaceholder />
+                                                </div>
+                                                <div class="col-md mb-3">
+                                                    <LabelPlaceholder
+                                                    <LabelPlaceholder
                                                         style="height: 16px; width: 59px; margin-bottom: 12px;" />
                                                     <InputPlaceholder />
                                                 </div>
                                                 <div class="col-md mb-3">
                                                     <LabelPlaceholder
-                                                        style="height: 16px; width: 59px; margin-bottom: 12px;" />
+                                                        style="height: 16px; width: 144px; margin-bottom: 12px;" />
+                                                    <InputPlaceholder />
                                                     <InputPlaceholder />
                                                 </div>
                                                 <div class="col-md mb-3">
@@ -170,15 +226,22 @@ async function updateProfile() {
                                             <div class="row">
                                                 <div class="col-md mb-3">
                                                     <LabelPlaceholder
+                                                    <LabelPlaceholder
                                                         style="height: 16px; width: 51px; margin-bottom: 12px;" />
+                                                    <InputPlaceholder />
                                                     <InputPlaceholder />
                                                 </div>
                                                 <div class="col-md mb-3">
                                                     <LabelPlaceholder
+                                                    <LabelPlaceholder
                                                         style="height: 16px; width: 51px; margin-bottom: 12px;" />
+                                                    <InputPlaceholder />
                                                     <InputPlaceholder />
                                                 </div>
                                                 <div class="col-md mb-3">
+                                                    <LabelPlaceholder
+                                                        style="height: 16px; width: 59px; margin-bottom: 12px;" />
+                                                    <InputPlaceholder />
                                                     <LabelPlaceholder
                                                         style="height: 16px; width: 59px; margin-bottom: 12px;" />
                                                     <InputPlaceholder />
@@ -189,8 +252,13 @@ async function updateProfile() {
                                                 <div class="col-md-2 mb-3 m-auto">
                                                     <div class="btn btn-primaryy placeholder"
                                                         style="height: 40px; width: 100%;"></div>
+                                                <div class="col-md-2 mb-3 m-auto">
+                                                    <div class="btn btn-primaryy placeholder"
+                                                        style="height: 40px; width: 100%;"></div>
                                                 </div>
                                             </div>
+
+
 
 
                                         </Form>
@@ -198,10 +266,12 @@ async function updateProfile() {
 
                                 </div>
                                 <!-- Componente cargado -->
+                                <!-- Componente cargado -->
                                 <div v-else id="tabs-profile" class="tab-pane active show" role="tabpanel">
                                     <div class="card-header border-0 pb-0">
                                         <TitleGlobal type="h2" style="height: 20px;" text="Perfil" />
                                     </div>
+                                    <div class="card-body pb-0">
                                     <div class="card-body pb-0">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
@@ -271,6 +341,7 @@ async function updateProfile() {
                                                     <ErrorMessage name="phone" class="invalid-feedback" />
                                                 </div>
 
+
                                             </div>
 
                                             <div class="row">
@@ -286,9 +357,12 @@ async function updateProfile() {
                                                 </div>
                                             </div>
 
+                                                    <AlertGlobal scope="updateProfile" />
+                                                </div>
+                                            </div>
+
                                         </Form>
                                     </div>
-
                                 </div>
 
 
@@ -331,6 +405,14 @@ async function updateProfile() {
                                                         <LoadingGlobal v-if="useAccount.apiName === 'updateProfile'" />
                                                         <span v-else>Entregar</span>
                                                     </button>
+                                            <div class="row">
+                                                <div class="col-md-2 mb-3 m-auto">
+                                                    <button type="submit" class="btn btn-primary"
+                                                        :disabled="useAccount.apiName === 'updateProfile'"
+                                                        style="width: 100%;">
+                                                        <LoadingGlobal v-if="useAccount.apiName === 'updateProfile'" />
+                                                        <span v-else>Entregar</span>
+                                                    </button>
 
                                                     <AlertGlobal scope="updateProfile" />
                                                 </div>
@@ -365,7 +447,8 @@ async function updateProfile() {
                                                 <div class="col-md mb-3">
                                                     <LabelGlobal label="Contraseña" style="height: 20px;" />
                                                     <ButtonGlobal label="Establecer una nueva" type="button"
-                                                        class="btn w-100" />
+                                                        class="btn w-100" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-simple" />
                                                 </div>
                                             </div>
 
@@ -407,4 +490,6 @@ async function updateProfile() {
         <FooterPage />
     </main>
 
+
+    <NewPassword />
 </template>
