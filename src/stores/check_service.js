@@ -11,7 +11,9 @@ export const useCheckServiceStore = defineStore('check_service', {
     actions: {
         async check_service() {
             try {
+                const simulateDelay = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
                 const response = await axios.get(`${BASE_URL}api/v1/service`);
+                await simulateDelay(3000);
                 if (response.status === 200) {
                     return true;
                 } else {

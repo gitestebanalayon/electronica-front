@@ -15,7 +15,13 @@
                     <Form autocomplete="off" @submit="login" :validation-schema="validate" v-slot="{ errors }">
 
                         <div class="mb-3">
-                            <label class="form-label">Correo electrónico:</label>
+                            <label class="form-label">
+                                Correo electrónico:
+                                <span class="form-label-description">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-simple">Olvido de
+                                        correo</a>
+                                </span>
+                            </label>
                             <Field v-model="email" name="email" placeholder="tucorreo@email.com" id="floating-input-u"
                                 autocomplete="off" type="email" class="form-control"
                                 :class="{ 'is-invalid': errors.email }" />
@@ -25,7 +31,7 @@
                             <label class="form-label">
                                 Contraseña:
                                 <span class="form-label-description">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-simple">Olvidé la
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-simple">Olvido de
                                         contraseña</a>
                                 </span>
                             </label>
@@ -88,8 +94,9 @@ const validate = Yup.object().shape({
         .email('Debe ser un correo válido')
         .required('El correo es obligatorio'),
     password: Yup.string()
-        .min(8, 'La clave debe tener como mínimo 8 caracteres')
-        .required('La clave es obligatoria'),
+        .required('La contraseña es obligatoria')
+        .min(3, 'La contraseña debe tener al menos 3 dígitos')
+        .max(8, 'La contraseña no puede tener más de 8 dígitos'),
 });
 
 const email = ref('')

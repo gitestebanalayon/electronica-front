@@ -358,7 +358,7 @@ export const useAccountStore = defineStore('account', {
                 const headers = { Authorization: `Bearer ${user.token}` };
                 // const simulateDelay = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
                 const response = await axios.get(`${BASE_URL}api/v1/account/filter/profile`, { headers });
-                // await simulateDelay(5000);
+                // await simulateDelay(3000);
 
                 if (response.data.statusCode === 200) {
                     this.profile = response.data.data
@@ -463,7 +463,76 @@ export const useAccountStore = defineStore('account', {
                 this.apiName = null;
             }
 
+        },
+
+        async newPassword(currentPassword, password) {
+            try {
+                this.apiName = 'newPassword';
+                this.clearAlerts(); // Limpia cualquier alerta existente
+
+
+                const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+                const headers = { Authorization: `Bearer ${user.token}` };
+
+
+
+                // Realizar la solicitud PUT con axios
+                const response = await axios.put(`${BASE_URL}api/v1/account/update/password`,
+                    {
+                        'currentPassword': currentPassword,
+                        'password': password,
+                    },
+                    {
+                        headers
+                    });
+
+              
+
+                if (response.data.statusCode === 200) {
+                    this.addAlert({
+                        type: 'success',
+                        title: '¡Contraseña actualizada!',
+                        message: response?.data?.message,
+                        scope: 'newPassword',
+                    });
+                    return true;
+                }
+
+                return false;
+            } catch (error) {
+                this.apiName = null;
+
+                console.log(error.response?.data?.statusCode);
+                console.log(error.response?.data?.message);
+
+
+
+                switch (error.response?.data?.statusCode) {
+                    case 409:
+                        this.addAlert({
+                            type: 'danger',
+                            title: '¡Ups!',
+                            message: error.response?.data?.message,
+                            scope: 'newPassword',
+                        });
+                        break;
+
+                    default:
+                        this.addAlert({
+                            type: 'danger',
+                            title: '¡Servicio no disponible!',
+                            message: 'Por favor recarga la página para verificar el servicio',
+                            scope: 'newPassword',
+                        });
+                        break;
+                }
+
+                // return false;
+            } finally {
+                this.apiName = null;
+            }
         }
+
     },
 });
 
